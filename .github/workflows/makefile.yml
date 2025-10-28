@@ -6,22 +6,29 @@ on:
   pull_request:
     branches: [ "master" ]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
+    - name: Copy kubeconfig
+      run: |
+        mkdir ~/.kube
+        cp .github/workflows/assets/placeholder-kubeconfig.yaml ~/.kube/config
+    - name: test
+      run: make test
 
-    - name: configure
-      run: ./configure
-
-    - name: Install dependencies
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: build-linux
       run: make
+    - name: build-windows
+      run: make windows
+    - name: build-darwin
+      run: make darwin
 
-    - name: Run check
-      run: make check
-
-    - name: Run distcheck
-      run: make distcheck
