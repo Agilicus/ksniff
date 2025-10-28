@@ -26,9 +26,11 @@ endif
 
 linux:
 	GO111MODULE=on GOOS=linux GOARCH=amd64 go build -o kubectl-sniff cmd/kubectl-sniff.go
+	GO111MODULE=on GOOS=linux GOARCH=amd64 go build -o kubectl-sniff-arm64 cmd/kubectl-sniff.go
 
 windows:
 	GO111MODULE=on GOOS=windows GOARCH=amd64 go build -o kubectl-sniff-windows cmd/kubectl-sniff.go
+	GO111MODULE=on GOOS=windows GOARCH=amd64 go build -o kubectl-sniff-windows-arm64 cmd/kubectl-sniff.go
 
 darwin:
 	GO111MODULE=on GOOS=darwin GOARCH=amd64 go build -o kubectl-sniff-darwin cmd/kubectl-sniff.go
